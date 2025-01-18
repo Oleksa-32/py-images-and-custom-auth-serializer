@@ -20,14 +20,6 @@ class CinemaHall(models.Model):
         return self.name
 
 
-def create_custom_path(instance, filename):
-   _, extension = os.path.splitext(filename)
-   return os.path.join(
-       "uploads/images/",
-       f"{slugify(instance.title)}-{uuid.uuid4()}{extension}"
-   )
-
-
 class Genre(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -45,6 +37,14 @@ class Actor(models.Model):
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+def create_custom_path(instance, filename):
+   extension = os.path.splitext(filename)
+   return os.path.join(
+       "uploads/images/",
+       f"{slugify(instance.title)}-{uuid.uuid4()}{extension}"
+   )
 
 
 class Movie(models.Model):
